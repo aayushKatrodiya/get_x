@@ -15,43 +15,31 @@ class FormUi extends StatelessWidget {
           Row(
             children: [
               const Text("Gender:=   "),
-              Radio(
-                value: formController.male.value.obs,
-                groupValue: formController.gender,
-                onChanged: (value) {
-                  formController.gender = value!;
-                },
+              Obx(
+                () => Radio(
+                  value: formController.male.value,
+                  groupValue: formController.gender.value,
+                  onChanged: (value) {
+                    formController.gender.value = value.toString();
+                  },
+                ),
               ),
               const Text("Male"),
-              Radio(
-                value: formController.female.value.obs,
-                groupValue: formController.gender.value.obs,
-                onChanged: (value) {
-                  formController.gender = value!;
-                },
+              Obx(
+                () => Radio(
+                  value: formController.female.value,
+                  groupValue: formController.gender.value,
+                  onChanged: (value) {
+                    formController.gender.value = value.toString();
+                  },
+                ),
               ),
               const Text("Female"),
             ],
           ),
-          Row(
-            children: [
-              const Text("Hobby:=    "),
-              Checkbox(
-                value: false,
-                onChanged: (value) {},
-              ),
-              const Text("FreeFire"),
-              Checkbox(
-                value: false,
-                onChanged: (value) {},
-              ),
-              const Text("BGMI"),
-              Checkbox(
-                value: false,
-                onChanged: (value) {},
-              ),
-              const Text("COC"),
-            ],
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text("Submitted"),
           ),
         ],
       ),
