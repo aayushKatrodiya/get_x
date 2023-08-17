@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ColorChangerController extends GetxController {
-  static List colorData = [
+  RxList colorData = [
     Colors.red,
     Colors.green,
     Colors.blue,
@@ -12,20 +12,20 @@ class ColorChangerController extends GetxController {
     Colors.purple,
     Colors.amber,
     Colors.cyan,
-  ];
-  static bool isOldIndex = true;
-  static int? oldIndex, newIndex;
+  ].obs;
+  RxBool isOldIndex = true.obs;
+  RxInt? oldIndex, newIndex;
 
-  static void changeColor(int index) {
-    if (isOldIndex == true) {
-      oldIndex = index;
-      isOldIndex = false;
+  void changeColor(int index) {
+    if (isOldIndex.value == true) {
+      oldIndex = index.obs;
+      isOldIndex = false.obs;
     } else {
-      newIndex = index;
-      Color swapColor = colorData[newIndex!];
-      colorData[newIndex!] = colorData[oldIndex!];
-      colorData[oldIndex!] = swapColor;
-      isOldIndex = true;
+      newIndex = index.obs;
+      Color swapColor = colorData[newIndex!.value];
+      colorData[newIndex!.value] = colorData[oldIndex!.value];
+      colorData[oldIndex!.value] = swapColor;
+      isOldIndex = true.obs;
     }
   }
 }

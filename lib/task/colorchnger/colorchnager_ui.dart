@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'colorchanger_controller.dart';
 
 class ColorChangingContainer extends StatelessWidget {
@@ -6,6 +7,8 @@ class ColorChangingContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ColorChangerController colorChangerController = Get.find();
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -13,19 +16,20 @@ class ColorChangingContainer extends StatelessWidget {
           children: [
             Wrap(
               children: List.generate(
-                ColorChangerController.colorData.length,
+                colorChangerController.colorData.length,
                 (index) => GestureDetector(
-                  onTap: () {
-                    ColorChangerController.changeColor(index);
-                  },
-                  child: Card(
-                    child: Container(
-                      height: 120,
-                      width: 120,
-                      color: ColorChangerController.colorData[index],
-                    ),
-                  ),
-                ),
+                    onTap: () {
+                      colorChangerController.changeColor(index);
+                    },
+                    child: Obx(
+                      () => Card(
+                        child: Container(
+                          height: 120,
+                          width: 120,
+                          color: colorChangerController.colorData[index],
+                        ),
+                      ),
+                    )),
               ),
             ),
           ],
