@@ -18,18 +18,19 @@ class ColorChangingContainer extends StatelessWidget {
               children: List.generate(
                 colorChangerController.colorData.length,
                 (index) => GestureDetector(
-                    onTap: () {
-                      colorChangerController.changeColor(index);
-                    },
-                    child: Obx(
-                      () => Card(
-                        child: Container(
-                          height: 120,
-                          width: 120,
-                          color: colorChangerController.colorData[index],
-                        ),
+                  onTap: () {
+                    colorChangerController.changeColor(index);
+                  },
+                  child: Obx(
+                    () => Card(
+                      child: Container(
+                        height: 120,
+                        width: 120,
+                        color: colorChangerController.colorData[index],
                       ),
-                    )),
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
