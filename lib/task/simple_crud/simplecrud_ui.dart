@@ -16,8 +16,20 @@ class SimpleCrudeDemoUi extends StatelessWidget {
             TextFormField(
               controller: simpleCrudContoller.txtNameEditingController.value,
               decoration: const InputDecoration(
-                hintText: "FirstName",
+                hintText: "FirstN🚓ame",
                 label: Text("FirstName"),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            TextFormField(
+              controller:
+                  simpleCrudContoller.txtMiddleNameEditingController.value,
+              decoration: const InputDecoration(
+                hintText: "MiddleName",
+                label: Text("MiddleName"),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
@@ -131,77 +143,107 @@ class SimpleCrudeDemoUi extends StatelessWidget {
                                       ),
                                       TextFormField(
                                         controller: simpleCrudContoller
+                                            .txtUpdateMiddleNameEditingController
+                                            .value,
+                                      ),
+                                      TextFormField(
+                                        controller: simpleCrudContoller
                                             .txtUpdateSurNameEditingController
                                             .value,
                                       ),
                                       Obx(
                                         () => Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: [
-                                            const Text('Gender : '),
-                                            Radio(
-                                              value: simpleCrudContoller
-                                                  .maleUpdate.value,
-                                              groupValue: simpleCrudContoller
-                                                  .genderUpdate.value,
-                                              onChanged: (value) {
-                                                simpleCrudContoller
-                                                    .genderMethod(value!);
-                                              },
-                                            ),
-                                            const Text('Male'),
-                                            Radio(
-                                              value: simpleCrudContoller
-                                                  .feMaleUpdate.value,
-                                              groupValue: simpleCrudContoller
-                                                  .genderUpdate.value,
-                                              onChanged: (value) {
-                                                simpleCrudContoller
-                                                    .genderMethod(value!);
-                                              },
+                                            const Text('Gender:'),
+                                            Column(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Radio(
+                                                      value: simpleCrudContoller
+                                                          .maleUpdate.value,
+                                                      groupValue:
+                                                          simpleCrudContoller
+                                                              .genderUpdate
+                                                              .value,
+                                                      onChanged: (value) {
+                                                        simpleCrudContoller
+                                                            .genderMethod(
+                                                                value!);
+                                                      },
+                                                    ),
+                                                    const Text('Male'),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Radio(
+                                                      value: simpleCrudContoller
+                                                          .feMaleUpdate.value,
+                                                      groupValue:
+                                                          simpleCrudContoller
+                                                              .genderUpdate
+                                                              .value,
+                                                      onChanged: (value) {
+                                                        simpleCrudContoller
+                                                            .genderMethod(
+                                                                value!);
+                                                      },
+                                                    ),
+                                                    const Text('FeMale'),
+                                                  ],
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
                                       ),
-                                      const Text('FeMale'),
+                                      const Divider(),
                                       Row(
                                         children: [
                                           const Text('Hobby : '),
-                                          Obx(
-                                            () => Checkbox(
-                                              value: simpleCrudContoller
-                                                  .isCricketUpdate.value,
-                                              onChanged: (value) {
-                                                simpleCrudContoller
-                                                    .cricketUpdateMethod(
-                                                        value!);
-                                              },
-                                            ),
-                                          ),
-                                          const Text('Cricket'),
-                                          Obx(
-                                            () => Checkbox(
-                                              value: simpleCrudContoller
-                                                  .isFootballUpdate.value,
-                                              onChanged: (value) {
-                                                simpleCrudContoller
-                                                    .footballUpdateMethod(
-                                                        value!);
-                                              },
-                                            ),
-                                          ),
-                                          const Text('Football'),
-                                          Obx(
-                                            () => Checkbox(
-                                              value: simpleCrudContoller
-                                                  .isSingingUpdate.value,
-                                              onChanged: (value) {
-                                                simpleCrudContoller
-                                                    .singingUpdateMethod(
-                                                        value!);
-                                              },
-                                            ),
-                                          ),
-                                          const Text('Singing'),
+                                          Column(
+                                            children: [
+                                              Obx(
+                                                () => Checkbox(
+                                                  value: simpleCrudContoller
+                                                      .isCricketUpdate.value,
+                                                  onChanged: (value) {
+                                                    simpleCrudContoller
+                                                        .cricketUpdateMethod(
+                                                            value!);
+                                                  },
+                                                ),
+                                              ),
+                                              const Text('Cricket'),
+                                              Obx(
+                                                () => Checkbox(
+                                                  value: simpleCrudContoller
+                                                      .isFootballUpdate.value,
+                                                  onChanged: (value) {
+                                                    simpleCrudContoller
+                                                        .footballUpdateMethod(
+                                                            value!);
+                                                  },
+                                                ),
+                                              ),
+                                              const Text('Football'),
+                                              Obx(
+                                                () => Checkbox(
+                                                  value: simpleCrudContoller
+                                                      .isSingingUpdate.value,
+                                                  onChanged: (value) {
+                                                    simpleCrudContoller
+                                                        .singingUpdateMethod(
+                                                            value!);
+                                                  },
+                                                ),
+                                              ),
+                                              const Text('Singing'),
+                                            ],
+                                          )
                                         ],
                                       ),
                                       Obx(
@@ -273,6 +315,8 @@ class SimpleCrudeDemoUi extends StatelessWidget {
                                   children: [
                                     Text(
                                         ' Name :${simpleCrudContoller.userData[index]['name']}'),
+                                    Text(
+                                        ' MiddleName :${simpleCrudContoller.userData[index]['middleName']}'),
                                     Text(
                                         ' SurName :${simpleCrudContoller.userData[index]['surName']}'),
                                     Text(

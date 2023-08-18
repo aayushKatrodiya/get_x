@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 
 class SimpleCrudContoller extends GetxController {
   final txtNameEditingController = TextEditingController().obs;
+  final txtMiddleNameEditingController = TextEditingController().obs;
   final txtSurNameEditingController = TextEditingController().obs;
   final txtUpdateNameEditingController = TextEditingController().obs;
+  final txtUpdateMiddleNameEditingController = TextEditingController().obs;
   final txtUpdateSurNameEditingController = TextEditingController().obs;
   RxString gender = 'gender'.obs,
       male = 'male'.obs,
@@ -18,7 +20,7 @@ class SimpleCrudContoller extends GetxController {
       isCricketUpdate = false.obs,
       isFootballUpdate = false.obs,
       isSingingUpdate = false.obs;
-  RxDouble selectedAge = 0.0.obs, selectedAgeUpdate = 0.0.obs;
+  RxDouble selectedAge = 19.0.obs, selectedAgeUpdate = 19.0.obs;
   RxList stream = ['science', 'commerce', 'art'].obs;
   RxList streamUpdate = ['science', 'commerce', 'art'].obs;
   RxString? selectStream, selectedStreamUpdate;
@@ -68,6 +70,7 @@ class SimpleCrudContoller extends GetxController {
 
   void clearMethod() {
     txtNameEditingController.value.clear();
+    txtMiddleNameEditingController.value.clear();
     txtSurNameEditingController.value.clear();
     gender.value = 'gender';
     isCricket.value = false;
@@ -90,6 +93,7 @@ class SimpleCrudContoller extends GetxController {
     }
     userData.add({
       'name': txtNameEditingController.value.text,
+      'middleName': txtMiddleNameEditingController.value.text,
       'surName': txtSurNameEditingController.value.text,
       'age': selectedAge.value,
       'gender': gender.value,
