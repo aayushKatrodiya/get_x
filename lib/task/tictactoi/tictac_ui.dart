@@ -10,7 +10,8 @@ class TicTacToi extends StatelessWidget {
     TicTacController ticTacController = Get.find();
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(top: 70),
+        padding:
+            const EdgeInsets.only(top: 70, left: 10, right: 10, bottom: 40),
         child: Column(
           children: [
             Row(
@@ -60,7 +61,7 @@ class TicTacToi extends StatelessWidget {
                             BoxShadow(
                               color: Colors.grey,
                               blurRadius: 2,
-                              spreadRadius: 3,
+                              spreadRadius: 2,
                             )
                           ],
                         ),
@@ -82,13 +83,13 @@ class TicTacToi extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                MaterialButton(
+                ElevatedButton(
                   onPressed: () {
                     ticTacController.clear();
                   },
                   child: const Text('Reset'),
                 ),
-                MaterialButton(
+                ElevatedButton(
                   onPressed: () {
                     ticTacController.reserAll();
                   },

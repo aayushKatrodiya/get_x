@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:get/get.dart';
 
 class TicTacController extends GetxController {
@@ -127,7 +126,6 @@ class TicTacController extends GetxController {
       player2++;
       clear();
     }
-
     log(count.toString());
   }
 
