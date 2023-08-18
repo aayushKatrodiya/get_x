@@ -13,7 +13,7 @@ class SimpleCrudeDemoUi extends StatelessWidget {
         padding: const EdgeInsets.only(top: 50, left: 5, right: 5),
         child: Column(
           children: [
-            TextField(
+            TextFormField(
               controller: simpleCrudContoller.txtNameEditingController.value,
               decoration: const InputDecoration(
                 hintText: "FirstName",
@@ -24,7 +24,7 @@ class SimpleCrudeDemoUi extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            TextField(
+            TextFormField(
               controller: simpleCrudContoller.txtSurNameEditingController.value,
               decoration: const InputDecoration(
                 hintText: "SurName",
@@ -124,12 +124,12 @@ class SimpleCrudeDemoUi extends StatelessWidget {
                                 builder: (context) => AlertDialog(
                                   title: Column(
                                     children: [
-                                      TextField(
+                                      TextFormField(
                                         controller: simpleCrudContoller
                                             .txtUpdateNameEditingController
                                             .value,
                                       ),
-                                      TextField(
+                                      TextFormField(
                                         controller: simpleCrudContoller
                                             .txtUpdateSurNameEditingController
                                             .value,
@@ -201,7 +201,7 @@ class SimpleCrudeDemoUi extends StatelessWidget {
                                               },
                                             ),
                                           ),
-                                          const Text('Song'),
+                                          const Text('Singing'),
                                         ],
                                       ),
                                       Obx(
