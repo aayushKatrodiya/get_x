@@ -103,15 +103,21 @@ class SimpleCrudeDemoUi extends StatelessWidget {
                 const Text('Singing'),
               ],
             ),
-            Obx(
-              () => Slider(
-                value: simpleCrudContoller.selectedAge.value,
-                onChanged: (value) {
-                  simpleCrudContoller.ageMethod(value);
-                },
-                min: 0,
-                max: 100,
-              ),
+            Row(
+              children: [
+                const Text("Age"),
+                Obx(
+                  () => Slider(
+                    label: "Age",
+                    value: simpleCrudContoller.selectedAge.value,
+                    onChanged: (value) {
+                      simpleCrudContoller.ageMethod(value);
+                    },
+                    min: 0,
+                    max: 100,
+                  ),
+                ),
+              ],
             ),
             MaterialButton(
               onPressed: () {
