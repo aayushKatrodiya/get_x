@@ -9,252 +9,198 @@ class SimpleCrudeDemoUi extends StatelessWidget {
   Widget build(BuildContext context) {
     SimpleCrudContoller simpleCrudContoller = Get.find();
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 50, left: 5, right: 5),
-        child: Column(
-          children: [
-            TextFormField(
-              controller: simpleCrudContoller.txtNameEditingController.value,
-              decoration: const InputDecoration(
-                hintText: "FirstN🚓ame",
-                label: Text("FirstName"),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+      body: Column(
+        children: [
+          TextField(
+            controller: simpleCrudContoller.txtNameEditingController.value,
+          ),
+          TextField(
+            controller: simpleCrudContoller.txtSurNameEditingController.value,
+          ),
+          Row(
+            children: [
+              const Text('Gender : '),
+              const Text('Male'),
+              Obx(
+                () => Radio(
+                  value: simpleCrudContoller.male.value,
+                  groupValue: simpleCrudContoller.gender.value,
+                  onChanged: (value) {
+                    simpleCrudContoller.genderMethod(value!);
+                  },
                 ),
               ),
-            ),
-            const SizedBox(height: 10),
-            TextFormField(
-              controller:
-                  simpleCrudContoller.txtMiddleNameEditingController.value,
-              decoration: const InputDecoration(
-                hintText: "MiddleName",
-                label: Text("MiddleName"),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+              const Text('FeMale'),
+              Obx(
+                () => Radio(
+                  value: simpleCrudContoller.feMale.value,
+                  groupValue: simpleCrudContoller.gender.value,
+                  onChanged: (value) {
+                    simpleCrudContoller.genderMethod(value!);
+                  },
                 ),
               ),
-            ),
-            const SizedBox(height: 10),
-            TextFormField(
-              controller: simpleCrudContoller.txtSurNameEditingController.value,
-              decoration: const InputDecoration(
-                hintText: "SurName",
-                label: Text("SurName"),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+            ],
+          ),
+
+          Row(
+            children: [
+              const Text('Hobby : '),
+              const Text('Cricket'),
+              Obx(
+                () => Checkbox(
+                  value: simpleCrudContoller.isCricket.value,
+                  onChanged: (value) {
+                    simpleCrudContoller.cricketMethod(value!);
+                  },
                 ),
               ),
-            ),
-            Row(
-              children: [
-                const Text('Gender : '),
-                Obx(
-                  () => Radio(
-                    value: simpleCrudContoller.male.value,
-                    groupValue: simpleCrudContoller.gender.value,
-                    onChanged: (value) {
-                      simpleCrudContoller.genderMethod(value!);
-                    },
-                  ),
+              const Text('Football'),
+              Obx(
+                () => Checkbox(
+                  value: simpleCrudContoller.isFootball.value,
+                  onChanged: (value) {
+                    simpleCrudContoller.footballMethod(value!);
+                  },
                 ),
-                const Text('Male'),
-                Obx(
-                  () => Radio(
-                    value: simpleCrudContoller.feMale.value,
-                    groupValue: simpleCrudContoller.gender.value,
-                    onChanged: (value) {
-                      simpleCrudContoller.genderMethod(value!);
-                    },
-                  ),
+              ),
+              const Text('Singing'),
+              Obx(
+                () => Checkbox(
+                  value: simpleCrudContoller.isSinging.value,
+                  onChanged: (value) {
+                    simpleCrudContoller.singingMethod(value!);
+                  },
                 ),
-                const Text('FeMale'),
-              ],
-            ),
-            Row(
-              children: [
-                const Text('Hobby:'),
-                Obx(
-                  () => Checkbox(
-                    value: simpleCrudContoller.isCricket.value,
-                    onChanged: (value) {
-                      simpleCrudContoller.cricketMethod(value!);
-                    },
-                  ),
-                ),
-                const Text('Cricket'),
-                Obx(
-                  () => Checkbox(
-                    value: simpleCrudContoller.isFootball.value,
-                    onChanged: (value) {
-                      simpleCrudContoller.footballMethod(value!);
-                    },
-                  ),
-                ),
-                const Text('Football'),
-                Obx(
-                  () => Checkbox(
-                    value: simpleCrudContoller.isSinging.value,
-                    onChanged: (value) {
-                      simpleCrudContoller.singingMethod(value!);
-                    },
-                  ),
-                ),
-                const Text('Singing'),
-              ],
-            ),
-            Row(
-              children: [
-                const Text("Age"),
-                Obx(
-                  () => Slider(
-                    label: "Age",
-                    value: simpleCrudContoller.selectedAge.value,
-                    onChanged: (value) {
-                      simpleCrudContoller.ageMethod(value);
-                    },
-                    min: 0,
-                    max: 100,
-                  ),
-                ),
-              ],
-            ),
-            MaterialButton(
-              onPressed: () {
-                simpleCrudContoller.addUserData();
-                simpleCrudContoller.clearMethod();
+              ),
+            ],
+          ),
+          Obx(
+            () => Slider(
+              value: simpleCrudContoller.selectedAge.value,
+              onChanged: (value) {
+                simpleCrudContoller.ageMethod(value);
               },
-              child: const Text('Submit'),
+              min: 0,
+              max: 100,
             ),
-            Obx(
-              () => simpleCrudContoller.userData.isEmpty
-                  ? const Text('There is not data')
-                  : Expanded(
-                      child: ListView.builder(
-                        itemCount: simpleCrudContoller.userData.length,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              simpleCrudContoller.selectedIndex.value = index;
-                              simpleCrudContoller.onTapUpdate();
-                              showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
+          ),
+          // Obx(() => DropdownButton(
+          //       items: simpleCrudContoller.stream
+          //           .map((e) => DropdownMenuItem(
+          //                 value: e,
+          //                 child: Text(e),
+          //               ))
+          //           .toList(),
+          //       onChanged: (value) {
+          //         simpleCrudContoller.streamMethod(value as String);
+          //       },
+          //     )),
+          MaterialButton(
+            onPressed: () {
+              simpleCrudContoller.addUserData();
+              simpleCrudContoller.clearMethod();
+            },
+            child: const Text('Submit'),
+          ),
+          Obx(
+            () => simpleCrudContoller.userData.isEmpty
+                ? const Text('There is not data')
+                : Expanded(
+                    child: ListView.builder(
+                      itemCount: simpleCrudContoller.userData.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            simpleCrudContoller.selectedIndex.value = index;
+                            simpleCrudContoller.onTapUpdate();
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
                                   title: Column(
                                     children: [
-                                      TextFormField(
+                                      TextField(
                                         controller: simpleCrudContoller
                                             .txtUpdateNameEditingController
                                             .value,
                                       ),
-                                      TextFormField(
-                                        controller: simpleCrudContoller
-                                            .txtUpdateMiddleNameEditingController
-                                            .value,
-                                      ),
-                                      TextFormField(
+                                      TextField(
                                         controller: simpleCrudContoller
                                             .txtUpdateSurNameEditingController
                                             .value,
                                       ),
                                       Obx(
                                         () => Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
                                           children: [
-                                            const Text('Gender:'),
-                                            Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Radio(
-                                                      value: simpleCrudContoller
-                                                          .maleUpdate.value,
-                                                      groupValue:
-                                                          simpleCrudContoller
-                                                              .genderUpdate
-                                                              .value,
-                                                      onChanged: (value) {
-                                                        simpleCrudContoller
-                                                            .genderMethod(
-                                                                value!);
-                                                      },
-                                                    ),
-                                                    const Text('Male'),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Radio(
-                                                      value: simpleCrudContoller
-                                                          .feMaleUpdate.value,
-                                                      groupValue:
-                                                          simpleCrudContoller
-                                                              .genderUpdate
-                                                              .value,
-                                                      onChanged: (value) {
-                                                        simpleCrudContoller
-                                                            .genderMethod(
-                                                                value!);
-                                                      },
-                                                    ),
-                                                    const Text('FeMale'),
-                                                  ],
-                                                ),
-                                              ],
+                                            const Text('Gender : '),
+                                            const Text('Male'),
+                                            Radio(
+                                              value: simpleCrudContoller
+                                                  .maleUpdate.value,
+                                              groupValue: simpleCrudContoller
+                                                  .genderUpdate.value,
+                                              onChanged: (value) {
+                                                simpleCrudContoller
+                                                    .genderUpdateMethod(value!);
+                                              },
+                                            ),
+                                            const Text('FeMale'),
+                                            Radio(
+                                              value: simpleCrudContoller
+                                                  .feMaleUpdate.value,
+                                              groupValue: simpleCrudContoller
+                                                  .genderUpdate.value,
+                                              onChanged: (value) {
+                                                simpleCrudContoller
+                                                    .genderUpdateMethod(value!);
+                                              },
                                             ),
                                           ],
                                         ),
                                       ),
-                                      const Divider(),
                                       Row(
                                         children: [
                                           const Text('Hobby : '),
-                                          Column(
-                                            children: [
-                                              Obx(
-                                                () => Checkbox(
-                                                  value: simpleCrudContoller
-                                                      .isCricketUpdate.value,
-                                                  onChanged: (value) {
-                                                    simpleCrudContoller
-                                                        .cricketUpdateMethod(
-                                                            value!);
-                                                  },
-                                                ),
-                                              ),
-                                              const Text('Cricket'),
-                                              Obx(
-                                                () => Checkbox(
-                                                  value: simpleCrudContoller
-                                                      .isFootballUpdate.value,
-                                                  onChanged: (value) {
-                                                    simpleCrudContoller
-                                                        .footballUpdateMethod(
-                                                            value!);
-                                                  },
-                                                ),
-                                              ),
-                                              const Text('Football'),
-                                              Obx(
-                                                () => Checkbox(
-                                                  value: simpleCrudContoller
-                                                      .isSingingUpdate.value,
-                                                  onChanged: (value) {
-                                                    simpleCrudContoller
-                                                        .singingUpdateMethod(
-                                                            value!);
-                                                  },
-                                                ),
-                                              ),
-                                              const Text('Singing'),
-                                            ],
-                                          )
+                                          const Text('Cricket'),
+                                          Obx(
+                                            () => Checkbox(
+                                              value: simpleCrudContoller
+                                                  .isCricketUpdate.value,
+                                              onChanged: (value) {
+                                                simpleCrudContoller
+                                                    .cricketUpdateMethod(
+                                                        value!);
+                                              },
+                                            ),
+                                          ),
+                                          const Text('Football'),
+                                          Obx(
+                                            () => Checkbox(
+                                              value: simpleCrudContoller
+                                                  .isFootballUpdate.value,
+                                              onChanged: (value) {
+                                                simpleCrudContoller
+                                                    .footballUpdateMethod(
+                                                        value!);
+                                              },
+                                            ),
+                                          ),
+                                          const Text('Singing'),
+                                          Obx(
+                                            () => Checkbox(
+                                              value: simpleCrudContoller
+                                                  .isSingingUpdate.value,
+                                              onChanged: (value) {
+                                                simpleCrudContoller
+                                                    .singingUpdateMethod(
+                                                        value!);
+                                              },
+                                            ),
+                                          ),
                                         ],
                                       ),
                                       Obx(
                                         () => Slider(
-                                          divisions: 100,
                                           value: simpleCrudContoller
                                               .selectedAgeUpdate.value,
                                           onChanged: (value) {
@@ -271,6 +217,7 @@ class SimpleCrudeDemoUi extends StatelessWidget {
                                     MaterialButton(
                                       onPressed: () {
                                         simpleCrudContoller.updateMethod();
+                                        simpleCrudContoller.clearUpdateMethod();
                                         simpleCrudContoller
                                             .updateButton(context);
                                       },
@@ -283,34 +230,33 @@ class SimpleCrudeDemoUi extends StatelessWidget {
                                       },
                                       child: const Text('cancle'),
                                     )
-                                  ],
-                                ),
-                              );
-                            },
-                            child: Dismissible(
+                                  ]),
+                            );
+                          },
+                          child: Obx(
+                            () => Dismissible(
                               key: UniqueKey(),
                               onDismissed: (direction) {
                                 showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(
-                                    title: const Text('Are you sure?'),
-                                    actions: [
-                                      MaterialButton(
-                                        onPressed: () {
-                                          simpleCrudContoller.deleteButton(
-                                              context, index);
-                                        },
-                                        child: const Text('delete'),
-                                      ),
-                                      MaterialButton(
-                                        onPressed: () {
-                                          simpleCrudContoller
-                                              .cancleDeleteButton(context);
-                                        },
-                                        child: const Text('cancle'),
-                                      )
-                                    ],
-                                  ),
+                                      title: const Text('Are you sure?'),
+                                      actions: [
+                                        MaterialButton(
+                                          onPressed: () {
+                                            simpleCrudContoller.deleteButton(
+                                                context, index);
+                                          },
+                                          child: const Text('Delete'),
+                                        ),
+                                        MaterialButton(
+                                          onPressed: () {
+                                            simpleCrudContoller
+                                                .cancleDeleteButton(context);
+                                          },
+                                          child: const Text('Cancel'),
+                                        )
+                                      ]),
                                 );
                               },
                               child: Container(
@@ -321,8 +267,6 @@ class SimpleCrudeDemoUi extends StatelessWidget {
                                   children: [
                                     Text(
                                         ' Name :${simpleCrudContoller.userData[index]['name']}'),
-                                    Text(
-                                        ' MiddleName :${simpleCrudContoller.userData[index]['middleName']}'),
                                     Text(
                                         ' SurName :${simpleCrudContoller.userData[index]['surName']}'),
                                     Text(
@@ -335,13 +279,13 @@ class SimpleCrudeDemoUi extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        );
+                      },
                     ),
-            )
-          ],
-        ),
+                  ),
+          )
+        ],
       ),
     );
   }

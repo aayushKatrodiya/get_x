@@ -3,10 +3,8 @@ import 'package:get/get.dart';
 
 class SimpleCrudContoller extends GetxController {
   final txtNameEditingController = TextEditingController().obs;
-  final txtMiddleNameEditingController = TextEditingController().obs;
   final txtSurNameEditingController = TextEditingController().obs;
   final txtUpdateNameEditingController = TextEditingController().obs;
-  final txtUpdateMiddleNameEditingController = TextEditingController().obs;
   final txtUpdateSurNameEditingController = TextEditingController().obs;
   RxString gender = 'gender'.obs,
       male = 'male'.obs,
@@ -20,7 +18,7 @@ class SimpleCrudContoller extends GetxController {
       isCricketUpdate = false.obs,
       isFootballUpdate = false.obs,
       isSingingUpdate = false.obs;
-  RxDouble selectedAge = 19.0.obs, selectedAgeUpdate = 19.0.obs;
+  RxDouble selectedAge = 0.0.obs, selectedAgeUpdate = 0.0.obs;
   RxList stream = ['science', 'commerce', 'art'].obs;
   RxList streamUpdate = ['science', 'commerce', 'art'].obs;
   RxString? selectStream, selectedStreamUpdate;
@@ -30,6 +28,10 @@ class SimpleCrudContoller extends GetxController {
 
   void genderMethod(String value) {
     gender.value = value;
+  }
+
+  void genderUpdateMethod(String value) {
+    genderUpdate.value = value;
   }
 
   void cricketMethod(bool value) {
@@ -70,14 +72,13 @@ class SimpleCrudContoller extends GetxController {
 
   void clearMethod() {
     txtNameEditingController.value.clear();
-    txtMiddleNameEditingController.value.clear();
     txtSurNameEditingController.value.clear();
     gender.value = 'gender';
     isCricket.value = false;
     isFootball.value = false;
     isSinging.value = false;
     selectedAge.value = 0;
-    selectStream!.value = '';
+    //selectStream!.value = '';
   }
 
   void addUserData() {
@@ -93,21 +94,22 @@ class SimpleCrudContoller extends GetxController {
     }
     userData.add({
       'name': txtNameEditingController.value.text,
-      'middleName': txtMiddleNameEditingController.value.text,
       'surName': txtSurNameEditingController.value.text,
       'age': selectedAge.value,
       'gender': gender.value,
       'hobby': List.from(selectedHobby.map((e) => e)),
-      'stream': selectStream,
+      //'stream': selectStream,
     });
   }
 
   void clearUpdateMethod() {
     txtUpdateNameEditingController.value.clear();
     txtUpdateSurNameEditingController.value.clear();
+    isCricketUpdate.value = false;
+    isFootballUpdate.value = false;
+    isSingingUpdate.value = false;
     selectedAgeUpdate.value = 0;
-    genderUpdate.value = 'gender';
-    selectedStreamUpdate!.value = '';
+    //selectedStreamUpdate!.value = '';
   }
 
   void onTapUpdate() {
@@ -133,6 +135,7 @@ class SimpleCrudContoller extends GetxController {
 
   void updateMethod() {
     selectedHobby.clear();
+    userData.refresh();
     if (isCricketUpdate.value == true) {
       selectedHobby.add('Cricket');
     }
@@ -145,12 +148,12 @@ class SimpleCrudContoller extends GetxController {
     userData[selectedIndex.value]['name'] =
         txtUpdateNameEditingController.value.text;
     userData[selectedIndex.value]['surName'] =
-        txtUpdateNameEditingController.value.text;
-    userData[selectedIndex.value]['age'] = selectedAgeUpdate;
-    userData[selectedIndex.value]['gender'] = genderUpdate;
+        txtUpdateSurNameEditingController.value.text;
+    userData[selectedIndex.value]['age'] = selectedAgeUpdate.value;
+    userData[selectedIndex.value]['gender'] = genderUpdate.value;
     userData[selectedIndex.value]['hobby'] =
         List.from(selectedHobby.map((e) => e));
-    userData[selectedIndex.value]['stream'] = selectedStreamUpdate;
+    // userData[selectedIndex.value]['stream'] = selectedStreamUpdate;
   }
 
   void updateButton(dynamic context) {
@@ -163,10 +166,12 @@ class SimpleCrudContoller extends GetxController {
 
   void deleteButton(dynamic context, index) {
     userData.removeAt(index);
+    userData.refresh();
     Navigator.pop(context);
   }
 
   void cancleDeleteButton(dynamic context) {
+    userData.refresh();
     Navigator.pop(context);
   }
 }
