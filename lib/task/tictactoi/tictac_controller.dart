@@ -77,7 +77,6 @@ class TicTacController extends GetxController {
       player1++;
       clear();
     }
-
     if (gamePlay[0] == zero.value &&
         gamePlay[1] == zero.value &&
         gamePlay[2] == zero.value) {
@@ -143,7 +142,7 @@ class TicTacController extends GetxController {
     count = 0.obs;
   }
 
-  void reserAll() {
+  void restartAll() {
     player1.value = 0;
     player2.value = 0;
     clear();

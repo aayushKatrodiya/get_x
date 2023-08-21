@@ -91,7 +91,7 @@ class TicTacToi extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    ticTacController.reserAll();
+                    ticTacController.restartAll();
                   },
                   child: const Text('Restart'),
                 ),
